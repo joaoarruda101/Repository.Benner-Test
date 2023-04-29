@@ -112,8 +112,13 @@ namespace Estacionamento.Controllers
 
                 foreach (var item in dados)
                 {
-                    var horas = DateTime.Now.Hour - item.Entrada.Hour;
-                    if (horas >= 1)
+                    var horas = saida.Hour - item.Entrada.Hour;
+                    if (horas >= item.TempoCobrado)
+                    {
+                        var calculoValor = item.PrecoEstatacionamento * item.TempoCobrado;
+                        veiculoModel.ValorPagar = calculoValor;
+                    }
+                    else
                     {
                         var calculoValor = item.PrecoEstatacionamento * horas;
                         veiculoModel.ValorPagar = calculoValor;
@@ -125,6 +130,16 @@ namespace Estacionamento.Controllers
                        .Select(p => p.Placa)
                        .FirstOrDefault();
 
+                var tempoCobrado = _context.Veiculo
+                      .Where(p => p.Id == id)
+                      .Select(p => p.TempoCobrado)
+                      .FirstOrDefault();
+
+                var preco = _context.Veiculo
+                      .Where(p => p.Id == id)
+                      .Select(p => p.PrecoEstatacionamento)
+                      .FirstOrDefault();
+
                 TimeSpan horaAtual = DateTime.Now.TimeOfDay;
                 var duracao = horaAtual - entradaTime.TimeOfDay;
 
@@ -132,6 +147,8 @@ namespace Estacionamento.Controllers
                 veiculoModel.Entrada = entradaTime;
                 veiculoModel.Saida = saida;
                 veiculoModel.Duracao = duracao;
+                veiculoModel.TempoCobrado = tempoCobrado;
+                veiculoModel.PrecoEstatacionamento = preco;
 
                 _context.Update(veiculoModel);
                 await _context.SaveChangesAsync();

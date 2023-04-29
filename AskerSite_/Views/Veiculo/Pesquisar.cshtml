@@ -58,37 +58,18 @@
                 else
                 {
                     <td style="color: red;">
-                        @Html.DisplayFor(modelItem => item.Duracao)
+                        @Html.DisplayFor(modelItem => item.Saida)
                     </td>
                 }
                 <td>
                     @Html.DisplayFor(modelItem => item.Duracao)
                 </td>
-
-                @if (item.TempoCobrado == null)
-                {
-                    <td>
-                        ~~~~
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TempoCobrado)h
-                    </td>
-                }
-                @if (item.PrecoEstatacionamento == null)
-                {
-                    <td>
-                        ~~~~
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        R$  @Html.DisplayFor(modelItem => item.PrecoEstatacionamento)
-                    </td>
-                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.TempoCobrado)h
+                </td>
+                <td>
+                    R$  @Html.DisplayFor(modelItem => item.PrecoEstatacionamento)
+                </td>
                 @if (item.ValorPagar == null)
                 {
                     <td>
