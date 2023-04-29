@@ -101,35 +101,22 @@ namespace Estacionamento.Controllers
 
             try
             {
+                var valorPagar = 0;
 
-                var valorPagar = 0;            
-                var entrada = await _context.Veiculo.AsNoTracking()
+                var dados = _context.Veiculo.AsNoTracking()
+                            .Where(whr => whr.Id == id).ToList();
+
+                var entradaTime = _context.Veiculo.AsNoTracking()
                             .Where(whr => whr.Id == id)
-                            .Select(slc => slc.Entrada).ToListAsync();
+                            .Select(slc => slc.Entrada).FirstOrDefault();
 
-                foreach (var estacionado in entrada)
+                foreach (var item in dados)
                 {
-
-                    var subtracaoDatas = DateTime.Now - estacionado;
-                    if (subtracaoDatas.Minutes < 30 || subtracaoDatas.Minutes > 59)
+                    var horas = DateTime.Now.Hour - item.Entrada.Hour;
+                    if (horas >= 1)
                     {
-                        valorPagar += 1;
-                    }
-                    if (subtracaoDatas.Hours == 1 && subtracaoDatas.Minutes <= 10)
-                    {
-                        valorPagar += 2;
-                    }
-                    if (subtracaoDatas.Hours == 1 && subtracaoDatas.Minutes >= 15)
-                    {
-                        valorPagar += 3;
-                    }
-                    if (subtracaoDatas.Hours == 2 && subtracaoDatas.Minutes <= 5)
-                    {
-                        valorPagar += 3;
-                    }
-                    if (subtracaoDatas.Hours == 2 && subtracaoDatas.Minutes >= 15)
-                    {
-                        valorPagar += 4;
+                        var calculoValor = item.PrecoEstatacionamento * horas;
+                        veiculoModel.ValorPagar = calculoValor;
                     }
                 }
 
@@ -138,22 +125,17 @@ namespace Estacionamento.Controllers
                        .Select(p => p.Placa)
                        .FirstOrDefault();
 
-                var entradaTime = _context.Veiculo.AsNoTracking()
-                            .Where(whr => whr.Id == id)
-                            .Select(slc => slc.Entrada).FirstOrDefault();
-
                 TimeSpan horaAtual = DateTime.Now.TimeOfDay;
                 var duracao = horaAtual - entradaTime.TimeOfDay;
 
                 veiculoModel.Placa = placa;
                 veiculoModel.Entrada = entradaTime;
                 veiculoModel.Saida = saida;
-                veiculoModel.ValorPagar = valorPagar;
                 veiculoModel.Duracao = duracao;
 
                 _context.Update(veiculoModel);
-                    await _context.SaveChangesAsync();
-                                 
+                await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateConcurrencyException)
             {
