@@ -118,6 +118,10 @@ namespace Estacionamento.Controllers
                         var calculoValor = item.PrecoEstatacionamento * item.TempoCobrado;
                         veiculoModel.ValorPagar = calculoValor;
                     }
+                    else if (horas <= item.TempoCobrado)
+                    {
+                        veiculoModel.ValorPagar = item.PrecoEstatacionamento;
+                    }
                     else
                     {
                         var calculoValor = item.PrecoEstatacionamento * horas;

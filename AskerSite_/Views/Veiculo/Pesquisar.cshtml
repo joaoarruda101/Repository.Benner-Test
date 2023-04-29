@@ -1,93 +1,108 @@
 ﻿@model IEnumerable<Estacionamento.Models.VeiculoModel>
 
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create" target="_blank">Create New</a>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
 
     <form method="get" action="@Url.Action("Pesquisar")">
-        <input type="text" name="filtro" placeholder="Filtrar por placa">
-        <button type="submit">Filtrar</button>
+        <div class="input-group mb-3 col-2" style="margin: 20px;">
+            <button asp-action="Create" class="btn btn-success" style="margin-right: 12px;">Registrar</button>
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Filtrar</button>
+            <input type="text" name="filtro" class="form-control" placeholder="" aria-describedby="button-addon1" style="margin-right: -29px;">
+        </div>
     </form>
 
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Placa
-            </th>
-            <th>
-                Entrada
-            </th>
-            <th>
-                Saida
-            </th>
-            <th>
-                Duracao
-            </th>
-            <th>
-                Tempo cobrado por hora
-            </th>
-            <th>
-                Preco
-            </th>
-            <th>
-                Valor a pagar
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Placa)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Entrada)
-                </td>
-                @if (item.Saida == DateTime.MinValue)
-                {
-                    <td>
-                        <span style="color: green;">ESTACIONADO</span>
-                    </td>
-                }
-                else
-                {
-                    <td style="color: red;">
-                        @Html.DisplayFor(modelItem => item.Saida)
-                    </td>
-                }
-                <td>
-                    @Html.DisplayFor(modelItem => item.Duracao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TempoCobrado)h
-                </td>
-                <td>
-                    R$  @Html.DisplayFor(modelItem => item.PrecoEstatacionamento)
-                </td>
-                @if (item.ValorPagar == null)
-                {
-                    <td>
-                        ~~~~
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        R$  @Html.DisplayFor(modelItem => item.ValorPagar)
-                    </td>
-                }
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" target="_blank">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" target="_blank">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" target="_blank">Delete</a>
-                </td>
+                <th>
+                    Placa
+                </th>
+                <th>
+                    Entrada
+                </th>
+                <th>
+                    Saida
+                </th>
+                <th>
+                    Duracao
+                </th>
+                <th>
+                    Tempo cobrado por hora
+                </th>
+                <th>
+                    Preco
+                </th>
+                <th>
+                    Valor a pagar
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Placa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Entrada)
+                    </td>
+                    @if (item.Saida == DateTime.MinValue)
+                    {
+                        <td>
+                            <span style="color: green;">ESTACIONADO</span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="color: red;">
+                            @Html.DisplayFor(modelItem => item.Saida)
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duracao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TempoCobrado)h
+                    </td>
+                    <td>
+                        R$  @Html.DisplayFor(modelItem => item.PrecoEstatacionamento)
+                    </td>
+                    @if (item.ValorPagar == null)
+                    {
+                        <td>
+                            ~~~~
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            R$  @Html.DisplayFor(modelItem => item.ValorPagar)
+                        </td>
+                    }
+                    <td class="text-center">
+
+                        <a asp-action="Edit" asp-route-id="@item.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+
