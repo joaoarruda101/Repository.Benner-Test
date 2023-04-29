@@ -12202,11 +12202,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Área de Trabalho\\ControleEstacionamento\\AskerSite_\\Estacionamento.csproj",
+      "projectUniqueName": "E:\\Documentos\\GitHub\\Repository.Benner-Test\\AskerSite_\\Estacionamento.csproj",
       "projectName": "Estacionamento",
-      "projectPath": "E:\\Área de Trabalho\\ControleEstacionamento\\AskerSite_\\Estacionamento.csproj",
+      "projectPath": "E:\\Documentos\\GitHub\\Repository.Benner-Test\\AskerSite_\\Estacionamento.csproj",
       "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-      "outputPath": "E:\\Área de Trabalho\\ControleEstacionamento\\AskerSite_\\obj\\",
+      "outputPath": "E:\\Documentos\\GitHub\\Repository.Benner-Test\\AskerSite_\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

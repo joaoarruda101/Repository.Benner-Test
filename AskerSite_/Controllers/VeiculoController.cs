@@ -23,7 +23,7 @@ namespace Estacionamento.Controllers
         }
 
         // GET: Veiculo
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filtro)
         {
             return _context.Veiculo != null ?
                         View(await _context.Veiculo.ToListAsync()) :
@@ -213,7 +213,7 @@ namespace Estacionamento.Controllers
             return (_context.Veiculo?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public IActionResult PesquisarPlaca(string filtro)
+        public IActionResult Pesquisar(string filtro)
         {
             var query = _context.Veiculo.AsQueryable();
 

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Estacionamento.Models.VeiculoModel>
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" target="_blank">Create New</a>
+
+    <form method="get" action="@Url.Action("Pesquisar")">
+        <input type="text" name="filtro" placeholder="Filtrar por placa">
+        <button type="submit">Filtrar</button>
+    </form>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Placa
+            </th>
+            <th>
+                Entrada
+            </th>
+            <th>
+                Saida
+            </th>
+            <th>
+                Duracao
+            </th>
+            <th>
+                Tempo cobrado
+            </th>
+            <th>
+                Preco
+            </th>
+            <th>
+                Valor a pagar
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Placa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entrada)
+                </td>
+                @if (item.Saida == DateTime.MinValue)
+                {
+                    <td>
+                        <span style="color: green;">ESTACIONADO</span>
+                    </td>
+                }
+                else
+                {
+                    <td style="color: red;">
+                        @Html.DisplayFor(modelItem => item.Duracao)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duracao)
+                </td>
+
+                @if (item.TempoCobrado == null)
+                {
+                    <td>
+                        ~~~~
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TempoCobrado)h
+                    </td>
+                }
+                @if (item.PrecoEstatacionamento == null)
+                {
+                    <td>
+                        ~~~~
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        R$  @Html.DisplayFor(modelItem => item.PrecoEstatacionamento)
+                    </td>
+                }
+                @if (item.ValorPagar == null)
+                {
+                    <td>
+                        ~~~~
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        R$  @Html.DisplayFor(modelItem => item.ValorPagar)
+                    </td>
+                }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" target="_blank">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" target="_blank">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" target="_blank">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
